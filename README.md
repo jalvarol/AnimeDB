@@ -11,11 +11,11 @@ This project demonstrates the implementation and usage of various data structure
 **List.java:** This file contains the implementation of a generic list data structure used within the Hash Table for separate chaining.
 
 
-**<p>Data Structures Used</p>**
+**<p align="center">Data Structures Used</p>**
 **Hash Table:** Implemented using separate chaining for collision resolution. The Hash.java file includes methods for insertion, deletion, searching, and managing the hash table. This allows for efficient storage and retrieval of anime character data.
 
 **Binary Search Tree (BST):** Implemented to store and sort anime character data. The BST.java file includes methods for insertion, deletion, searching, and in-order traversal to maintain sorted order. This is useful for efficiently managing and querying sorted data.
 
-**List: ** Used within the Hash Table for separate chaining. The List.java file includes methods for adding, removing, and searching elements within the list. This helps in managing collisions within the hash table effectively.
+**List:** Used within the Hash Table for separate chaining. The List.java file includes methods for adding, removing, and searching elements within the list. This helps in managing collisions within the hash table effectively.
 
 This project provides a comprehensive example of using various data structures to build an efficient and functional application for managing anime character data. It demonstrates the practical applications of hash tables and binary search trees in real-world scenarios.
