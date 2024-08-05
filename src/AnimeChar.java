@@ -125,7 +125,7 @@ public class AnimeChar implements Comparable<AnimeChar>{
      */
     @Override public String toString() {
     	String result = 
-    			"\nName: " + name +
+    			"Name: " + name +
         		"\nShow: " + show +
         		"\nGender: " + gender +
         		"\nVoice Actor: " + voiceActor + 
@@ -137,25 +137,20 @@ public class AnimeChar implements Comparable<AnimeChar>{
     
     /**
      * Determines whether two AnimeChar objects are
-     * equal by comparing names
+     * equal by comparing names and shows
      * @param otherAC the second AnimeChar object
      * @return whether the AnimeChar are equal
      */
     @Override public boolean equals(Object o) {
     	if (o == this) {
     		return true;
-    	}else if (!(o instanceof AnimeChar)) {
+    	}else if (!(o instanceof AnimeChar) || o == null) {
     		return false;
     	}else {
-    		AnimeChar otherChar = (AnimeChar) o;
-    		
-    		if(!otherChar.name.equals(this.name)) {
-    			return false;
-    		}
-
+    		AnimeChar temp = (AnimeChar) o;
+    		return name.equals(temp.name) && show.equals(temp.show);        
     	}
     		
-    		return true;   	
     }
     
     
@@ -166,45 +161,17 @@ public class AnimeChar implements Comparable<AnimeChar>{
      * before the other character's name.
      * Returns 1 if the other character's name comes
      * alphabetically before this character's name
-//     * If the two movie's titles are the same, will
-//     * differentiate by show's name (alphabetical
-//     * comparison)
+     * If the two characters's names are the same, will
+     * differentiate by show's name (alphabetical
+     * comparison)
      * @param the other AnimeChar object to compare to this
      * @return 0 (same character), -1 (this character ordered first)
      * or 1 (the other character ordered first)
      */
 	@Override
-	public int compareTo(AnimeChar otherChar) {
-		if(this.equals(otherChar)) {
-			return 0;
-		}
-				
-		int nameSize = 0;
-		if((int)this.name.length() > (int)otherChar.name.length()) {
-			nameSize = otherChar.name.length();
-		}else {
-			nameSize = this.name.length();
-		}
-		
-		String name1 = this.name.toLowerCase();
-		String name2 = otherChar.name.toLowerCase();
-		
-		for(int i = 0; i < nameSize; i++) {
-			if((int)name1.charAt(i) != (int)name2.charAt(i)) {
-				int thisCharName = (int) name1.charAt(i);
-				int otherCharName = (int) name2.charAt(i);
-				
-				if(thisCharName < otherCharName) {
-					return -1;
-				}
-				return 1;
-			}
-		}
-		return 1;
-	}
-	
-	
-
+    public int compareTo(AnimeChar other) {
+        return this.name.compareTo(other.name);
+    }
 
 
 	/**
@@ -215,9 +182,10 @@ public class AnimeChar implements Comparable<AnimeChar>{
      * @return the hash code
      */
     @Override public int hashCode() {
-    	String key = name;
+    	String key = this.name+this.show;
     	int sum = 0;
-    	for(int i=0; i<key.length(); i++) {
+    	for(int i=0; i<key.length(); i++) 
+        {
     		sum += (int)key.charAt(i); 
     	}
         return sum;

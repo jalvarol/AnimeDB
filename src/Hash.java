@@ -38,8 +38,7 @@ public class Hash<T extends Comparable<T>> {
 	 * @return the index in the Table
 	 */
 	private int hash(T t) {
-		int code = t.hashCode();
-		return code % Table.size();
+		return t.hashCode() % Table.size();
 	}
 
 	/**
@@ -72,17 +71,13 @@ public class Hash<T extends Comparable<T>> {
 	 * or -1 if it is not found
 	 */
 	public int search(T t) {
-		int bucket = hash(t);
-		if (Table.get(bucket).linearSearch(t) != -1) {
-			return bucket;
-		} else {
-			return -1;
+		int index = hash(t);
+		if(Table.get(index).linearSearch(t) > 0)
+		{
+			return index;
 		}
-	}
-	
-	
-
-
+			return -1;
+   }
 	/**Mutators*/
 
 	/**
@@ -91,10 +86,11 @@ public class Hash<T extends Comparable<T>> {
 	 * @param t the key to insert
 	 */
 	public void insert(T t) {
-		if(t != null) {
-			int bucket = hash(t);
-			Table.get(bucket).addLast(t);
-			numElements++;
+		if(t != null)
+		{
+		int index = hash(t);
+		Table.get(index).addLast(t);
+		numElements++;
 		}
 	}
 
@@ -108,16 +104,15 @@ public class Hash<T extends Comparable<T>> {
 	 * @param t the key to remove
 	 */
 	public void remove(T t) {
-		int bucket = hash(t);
-		int index = Table.get(bucket).linearSearch(t);
-		
-		Table.get(bucket).placeIterator();
-		if (index != -1) {
-			Table.get(bucket).advanceToIndex(index);
-			Table.get(bucket).removeIterator();
-			numElements--;
-		}
-		
+		int index = hash(t);
+		int check = Table.get(index).linearSearch(t);
+		if(check != -1)
+			{
+				Table.get(index).placeIterator();
+				Table.get(index).advanceToIndex(check);
+				Table.get(index).removeIterator();
+				numElements--;
+			}
 	}
 
 	/**Additional Methods*/
@@ -133,7 +128,7 @@ public class Hash<T extends Comparable<T>> {
 	 * @param bucket the index in the Table
 	 */
 	public void printBucket(int bucket) {
-		System.out.println("Printing bucket #" + bucket);
+		//System.out.println("Printing bucket #" + bucket);
 		System.out.println(Table.get(bucket));
 	}
 
@@ -142,12 +137,17 @@ public class Hash<T extends Comparable<T>> {
 	 * in order until the last bucket, concatenates
 	 * all elements at all buckets into one String
 	 */
-	@Override public String toString() {
+	@Override public String toString() 
+	{
+	   
 		String s = "";
-
-		for(int i = 0; i < Table.size(); i++) {
-			s += Table.get(i);
-		}
+		for(int i = 0; i < Table.size();i++)
+		{ 
+			   if(!Table.get(i).isEmpty())
+			   {
+					s+= Table.get(i).toString();
+			   }
+		}  
 		return s;
 	}
-}
+   }

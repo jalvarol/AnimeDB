@@ -232,21 +232,17 @@ public class List<T extends Comparable<T>> {
      * @postcondition: position of the iterator remains
      * unchanged!
      */
-    public int linearSearch(T element) {    	
-    	Node current = first;
-    	int position = 0;
+ 	public int linearSearch(T element) {
+		Node temp = first;
+		for (int i = 1; i <= length; i++) {
+			if (temp.data == element) {
+				return i;
+			}
+			temp = temp.next;
+		}
+		return -1;
+	}
 
-    	while(current != null) {
-			position++;
-    		if(current.data.equals(element)) {
-    			return position;
-    		}
-    		current = current.next;
-    	}
-    	
-        return -1;       
-    }
-    
     
     /**
      * Returns the index from 1 to length
@@ -264,13 +260,12 @@ public class List<T extends Comparable<T>> {
      * precondition is violated.
      */
     public int binarySearch(T value) throws IllegalStateException {
-    	if(!inSortedOrder()) {
-    		throw new IllegalStateException("binarySearch(): " + "The list is not sorted.");
-    	}
-    	int low = 1;
-    	int high = this.getLength();
-        return binarySearch(low, high, value);
-    }
+		if (!inSortedOrder()) {
+			throw new IllegalStateException("binarySearch(): List is not sorted!");
+		} else
+			
+			return binarySearch(1, length, value);
+	}
     
     /**
      * Searches for the specified value in
@@ -284,25 +279,21 @@ public class List<T extends Comparable<T>> {
      * @postcondition the location of the iterator
      * must remain unchanged
      */
-    private int binarySearch(int low, int high, T value) {
-    	if(high < low) {
-    		return -1;
-    	}
-    	Node current = first;
-    	int mid = (low + high)/2;
-    	for(int i = 0; i < mid; i++) {
-    		current = current.next;
-    	}
-    	T temp = current.data;
-    	if(temp.equals(value)) {
-    		return mid;
-    	}else if(temp.compareTo(value) < 0) {
-    		return binarySearch(mid + 1, high, value);
-    	}else {
-    		return binarySearch(low, mid - 1, value);
-    	}
-    	
-    }
+	private int binarySearch(int low, int high, T value) {
+		if (high < low)
+			return -1;
+		int mid = low + (high - low) / 2;
+		Node temp = first;
+		for (int i = 1; i < mid; i++) {
+			temp = temp.next;
+		}
+		if (value.compareTo(temp.data) == 0) {
+			return mid;
+		} else if (value.compareTo(temp.data) < 0)
+			return binarySearch(low, mid - 1, value);
+		else
+			return binarySearch(mid + 1, high, value);
+	}
 
     
     /****MUTATORS****/
@@ -313,18 +304,21 @@ public class List<T extends Comparable<T>> {
      * front of the list
      * @postcondition a new node is inserted at the beginning
      */
-    public void addFirst(T data) {
-    	if(first == null) {
-    		first = last = new Node(data);
-    	}
-    	else {
-    		Node N = new Node(data);
-    		N.next = first;
-    		first.prev = N;
-    		first = N;
-    	}
-    	length++;
-    }
+	public void addFirst(T data) // doubly linked list updated
+	{
+		if (isEmpty())// edge
+		{
+			first = last = new Node(data);
+		} else // general
+		{
+			Node n = new Node(data);
+			n.next = first;
+			first.prev = n;
+			first = n;
+		}
+		length++;
+	}
+
     
     /**
      * Creates a new last element
@@ -332,37 +326,38 @@ public class List<T extends Comparable<T>> {
      * end of the list
      * @postcondition a new node is inserted at the end of list
      */
-    public void addLast(T data) {
-    	if(first == null) {
-    		first = last = new Node(data);
-    	}
-    	else {
-    		Node N = new Node(data);
-    		last.next = N;
-    		N.prev = last;
-    		last = N;
-    	}
-    	
-    	length++;
-    }
-    
+    public void addLast(T data)// doubly linked list updated
+	{
+		if (isEmpty())// edge
+		{
+			first = last = new Node(data);
+		} else // general
+		{
+			Node n = new Node(data);
+			last.next = n;
+			n.prev = last;
+			last = n;
+		}
+		length++;
+	}
     /**
     * removes the element at the front of the list
     * @precondition the list is not empty
     * @postcondition the first element of the list is removed
     * @throws NoSuchElementException when precondition is violated
     */
-    public void removeFirst() throws NoSuchElementException{
-        if (length == 0) {
-            throw new NoSuchElementException("removeFirst(): Cannot remove from an empty List!");
-        } else if (length == 1) {
-            first = last = null;
-        } else {
-            first = first.next;
-            first.prev = null;
-        }
-        length--;
-       }
+	public void removeFirst() throws NoSuchElementException {
+		if (isEmpty()) {
+			throw new NoSuchElementException("removeFirst(): " + "List is empty. No data to access!");
+		} else if (length == 1) {
+			first = last = null;
+		} else {
+			first = first.next;
+			first.prev = first;
+		}
+		length--;
+
+	}
     
     /**
      * removes the element at the end of the list
@@ -370,28 +365,30 @@ public class List<T extends Comparable<T>> {
      * @postcondition the last element of the list is removed
      * @throws NoSuchElementException when precondition is violated
      */
-    public void removeLast() throws NoSuchElementException{
-    	if (length == 0) {
-    		throw new NoSuchElementException("removeLast(): Cannot remove from an empty List!");
-    	}else if (length == 1) {
-            first = last = null;
-        } else {
-        	last = last.prev;
-        	last.next = null;
-        }
-        length--;
-        
-    }
-    
+	public void removeLast() throws NoSuchElementException {
+		if (isEmpty()) {
+			throw new NoSuchElementException("removeLast(): " + "List is empty. No data to access!");
+		} else if (length == 1) {
+			last = first = null;
+		} else {
+			last = last.prev;
+			last.next = null;
+		}
+		length--;
+	}
+
     /**
      * move the iterator to the start of the list
      * @precondition length != 0
      * @postcondition iterator = first
      * 
      */
-    public void placeIterator() {
-    		iterator = first;
-    }
+	public void placeIterator() {
+		if (isEmpty()) {
+			first = iterator = null;
+		} else
+			iterator = first;
+	}
     
     /**
      * remove the element pointed by the iterator
@@ -399,22 +396,24 @@ public class List<T extends Comparable<T>> {
      * @throws NullPointerException when precondition is violated
      * @postcondition element pointed by the iterator is removed from the list
      */
-    public void removeIterator() throws NullPointerException{
-    	if(offEnd()) {
-    		throw new NullPointerException("removeIterator(): "+"iterator is off the end, iterator cannot be removed.");
-    	}else if(iterator == first){
-    		removeFirst();
-    		iterator = null;
-    	}else if(iterator == last) {
-    		removeLast();
-    		iterator = null;
-    	}else {
-    		iterator.prev.next = iterator.next;
-    		iterator.next.prev = iterator.prev;
-    		iterator = null;
-    		length--;
-    	}
-    }
+	public void removeIterator() throws NullPointerException {
+		if (offEnd())// precondition
+		{
+			throw new NullPointerException("removeIterator:" + "Iterator is offEnd. Cannot remove.");
+		} else if (iterator == first)// edge case
+		{
+			removeFirst();
+		} else if (iterator == last)// edge case
+		{
+			removeLast();
+		} else// general case
+		{
+			iterator.prev.next = iterator.next;
+			iterator.next.prev = iterator.prev;
+			length--;
+		}
+		iterator = null;
+	}
     
     /**
      * inserts an element after the node currently pointed to by the iterator
@@ -422,21 +421,23 @@ public class List<T extends Comparable<T>> {
      * @param data
      * @postcondition an element is inserted after the iterator
      */
-    public void addIterator(T data) throws NullPointerException{
-    	if(offEnd()) {
-    		throw new NullPointerException("addIterator(): "+"iterator is off the end, cannot add.");
-    	}else if(iterator == last) {
-    		addLast(data);
-    	}else {
-    		Node N = new Node(data);
-    		N.next = iterator.next;
-    		N.prev = iterator;
-    		iterator.next.prev = N;
-    		iterator.next = N;
-    		length++;
-    	}
-    }
-    
+	public void addIterator(T data) throws NullPointerException {
+		if (offEnd()) // precondition
+		{
+			throw new NullPointerException("addIterator: " + "Iterator is offend. Cannot add.");
+		} else if (iterator == last) // edge case
+		{
+			addLast(data);
+		} else // general case
+		{
+			Node n = new Node(data);
+			n.next = iterator.next;
+			n.prev = iterator;
+			iterator.next.prev = n;
+			iterator.next = n;
+			length++;
+		}
+	}
     /**
      * moves the iterator up by one node
      * @precondition iterator != null
@@ -496,29 +497,28 @@ public class List<T extends Comparable<T>> {
      * At the end of the List a new line
      * @return the List as a String for display
      */
-    @Override public String toString() {
-    	
-    	String result = "";
-    	Node temp = first;
-    	
-    	while(temp != null) {
-    		result += temp.data + " ";
-    		temp = temp.next;		
-    	}
-    	
-       return result;
-    }
-    
-    
+	@Override
+	public String toString() {
+		String result = "";
+		Node temp = first;
+		while (temp != null) {
+			result += temp.data+"\n";
+			temp = temp.next;
+	
+		}
+		return result;
+	}
+
     /**
      * Prints a linked list to the console
      * in reverse by calling the private 
      * recursive helper method printInReverse
      */
-    public void printInReverse() {
-    	printInReverse(last);
-    }
-    
+	public void printInReverse() {
+		Node temp = last;
+		printInReverse(temp);
+	}
+
     /**
      * Recursively prints a linked list to the console
      * in reverse order from last to first (no loops)
@@ -528,15 +528,13 @@ public class List<T extends Comparable<T>> {
      */    
 
     private void printInReverse(Node node) throws NullPointerException {
-    	if(node == null) {
-    		throw new NullPointerException("reverseIterator(): "+"iterator is off the end, cannot be reversed.");
-    	}else if(node == first) {
-    		System.out.println(node.data + " ");
-    		return;
-    	}
-		System.out.print(node.data + " ");
-        printInReverse(node.prev);
-    }     
+		if (node == null) {
+			System.out.println();
+			return;
+		} else
+			System.out.printf(node.data + " ");
+		printInReverse(node.prev);
+	}
 
 
 
