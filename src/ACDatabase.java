@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 
 public class ACDatabase {
@@ -22,60 +23,59 @@ public class ACDatabase {
 		Scanner read;
 		readFile(acd, character, file);
 		boolean go = true;
-			while (go) {
-				menu();
-				read = new Scanner(System.in);
-				char ch = read.nextLine().charAt(0);
-				ch = Character.toUpperCase(ch);
-				if (ch == 'A') {
-					addCharacter(acd,read);
-				} else if (ch == 'L') {
-					readDatabase(acd, read);
-				} else if (ch == 'R') {
-					removeCharacter(acd,read);
-				} else if (ch == 'S') {
-					searchCharacter(acd,read);
-				} else if (ch == 'W') {
-					writeToFile(acd);
-				} else if (ch == 'Q') {
-						go = false;
-						read.close();
-						break;
-				} else {
-					System.out.println("Invalid Selection!\n");
-				}
+		while (go) {
+			menu();
+			read = new Scanner(System.in);
+			char ch = read.nextLine().charAt(0);
+			ch = Character.toUpperCase(ch);
+			if (ch == 'A') {
+				addCharacter(acd, read);
+			} else if (ch == 'L') {
+				readDatabase(acd, read);
+			} else if (ch == 'R') {
+				removeCharacter(acd, read);
+			} else if (ch == 'S') {
+				searchCharacter(acd, read);
+			} else if (ch == 'W') {
+				writeToFile(acd);
+			} else if (ch == 'Q') {
+				go = false;
+				read.close();
+				break;
+			} else {
+				System.out.println("Invalid Selection!\n");
 			}
-			System.out.println("\nGoodbye!");
+		}
+		System.out.println("\nGoodbye!");
 
 	}
-	public static void readFile(ACDatabase data, AnimeChar newEntry, File file)
-	{
+
+	public static void readFile(ACDatabase data, AnimeChar newEntry, File file) {
 		System.out.println("Welcome to the Anime Character Database!\n");
-		try{
+		try {
 			Scanner fileReader = new Scanner(file);
-		while (fileReader.hasNextLine()) {
-			String name = fileReader.nextLine();
-			String show = fileReader.nextLine();
-			String gender = fileReader.nextLine();
-			String voiceActor = fileReader.nextLine();
-			int year = fileReader.nextInt();
+			while (fileReader.hasNextLine()) {
+				String name = fileReader.nextLine();
+				String show = fileReader.nextLine();
+				String gender = fileReader.nextLine();
+				String voiceActor = fileReader.nextLine();
+				int year = fileReader.nextInt();
 
-			newEntry = new AnimeChar(name, show, gender, voiceActor, year);
-			data.ht.insert(newEntry);
-			data.bstByName.insert(newEntry);
-			data.bstByShow.insert(newEntry);
+				newEntry = new AnimeChar(name, show, gender, voiceActor, year);
+				data.ht.insert(newEntry);
+				data.bstByName.insert(newEntry);
+				data.bstByShow.insert(newEntry);
 
-			if ((fileReader.hasNextLine())) {
-				fileReader.nextLine();
+				if ((fileReader.hasNextLine())) {
+					fileReader.nextLine();
+				}
 			}
-		}
-		fileReader.close();
-		}
-		catch(IOException e)
-		{
+			fileReader.close();
+		} catch (IOException e) {
 			e.getMessage();
 		}
 	}
+
 	public static void menu() {
 		System.out.println("Please select from one of the following options:\n");
 
@@ -87,8 +87,8 @@ public class ACDatabase {
 				"Q. Quit: \n" +
 				"\nEnter your choice: ");
 	}
-	public static void addCharacter(ACDatabase data, Scanner nextIn)
-	{
+
+	public static void addCharacter(ACDatabase data, Scanner nextIn) {
 		System.out.println("\nAdding a Character");
 		System.out.print("\nEnter the Character name: ");
 		String tempName = nextIn.nextLine();
@@ -106,8 +106,8 @@ public class ACDatabase {
 		data.bstByShow.insert(newChar);
 		System.out.println("\n" + tempName + " was added!\n");
 	}
-	public static void readDatabase(ACDatabase data, Scanner nextIn)
-	{
+
+	public static void readDatabase(ACDatabase data, Scanner nextIn) {
 		while (true) {
 			System.out.println("\nPlease select one of the following options: \n" +
 					"P. Sorted by Character Name\n" +
@@ -133,8 +133,8 @@ public class ACDatabase {
 			}
 		}
 	}
-	public static void removeCharacter(ACDatabase data, Scanner nextIn)
-	{
+
+	public static void removeCharacter(ACDatabase data, Scanner nextIn) {
 		System.out.println("Removing a Character!");
 		System.out.print("\nEnter the character name: ");
 		String tempName = nextIn.nextLine();
@@ -150,8 +150,8 @@ public class ACDatabase {
 			System.out.println("\n" + newChar.getName() + " cannot be located in the database.\n");
 		}
 	}
-	public static void searchCharacter(ACDatabase data, Scanner nextIn)
-	{
+
+	public static void searchCharacter(ACDatabase data, Scanner nextIn) {
 		while (true) {
 			System.out.print("\nPlease select one of the following options: \n" +
 					"N. Name of the Character\n" +
@@ -159,8 +159,8 @@ public class ACDatabase {
 					"\nEnter your choice: ");
 			char ch = nextIn.nextLine().charAt(0);
 			if (ch == 'N') {
-				System.out.print("\nSearching for a Character!"+
-									"\nEnter the character name: ");
+				System.out.print("\nSearching for a Character!" +
+						"\nEnter the character name: ");
 				String tempName = nextIn.nextLine();
 
 				AnimeChar newChar = new AnimeChar(tempName, "", "", "", 0);
@@ -168,22 +168,25 @@ public class ACDatabase {
 				if (results.isEmpty()) {
 					System.out.println("\n" + newChar.getName() + " is not in the database.\n");
 				} else {
-					System.out.println("\n" + newChar.getName() + " is in the database!\n");
+					System.out.println("\n" + newChar.getName() + " is in the database.\n");
+					Collections.sort(results, AnimeCharComparators.BY_NAME);
 					for (AnimeChar ac : results) {
 						System.out.println(ac);
-					}			
+					}
 				}
 				break;
 			} else if (ch == 'S') {
-				System.out.print("Searching for a Show!"+
-								   "\nEnter the show name: ");
+				System.out.print("Searching for a Show!" +
+						"\nEnter the show name: ");
 				String tempShow = nextIn.nextLine();
 				AnimeChar check = new AnimeChar("", tempShow, "", "", 0);
 				List<AnimeChar> results = data.bstByShow.collectOccurrences(check);
 				if (results.isEmpty()) {
 					System.out.println("\n" + check.getShow() + " is not in the database.\n");
-				} else {
-					System.out.println("\n" + check.getShow() + " is in the database!\n");
+				} else {	
+					System.out.println("\n" + check.getShow() + " is in the database.\n");
+					// Sort the results by name
+					Collections.sort(results, AnimeCharComparators.BY_SHOW);
 					for (AnimeChar ac : results) {
 						System.out.println(ac);
 					}
@@ -194,12 +197,12 @@ public class ACDatabase {
 			}
 		}
 	}
-	public static void writeToFile(ACDatabase data)
-	{	
+
+	public static void writeToFile(ACDatabase data) {
 		try {
 			PrintWriter unsorted = new PrintWriter("Character List.txt");
 			unsorted.println(data.ht);
-		
+
 			unsorted.close();
 
 		} catch (Exception e) {

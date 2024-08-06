@@ -477,21 +477,26 @@ public class BST<T extends Comparable<T>> {
 	}
 
 	    // Helper method to collect all occurrences of a specific element
-    public List<T> collectOccurrences(T data) {
-        List<T> occurrences = new ArrayList<>();
-        collectOccurrencesHelper(root, data, occurrences);
-        return occurrences;
-    }
-
-    private void collectOccurrencesHelper(Node node, T data, List<T> occurrences) {
-        if (node == null) {
-            return;
-        }
-		System.out.println("Comparing: " + data + " with " + node.data);
-        if (compare(data, node.data) == 0) {
-            occurrences.add(node.data);
-        }
-		collectOccurrencesHelper(node.left, data, occurrences);
-        collectOccurrencesHelper(node.right, data, occurrences);
-    }
-}
+		public List<T> collectOccurrences(T data) {
+			List<T> occurrences = new ArrayList<>();
+			collectOccurrencesHelper(root, data, occurrences);
+			return occurrences;
+		}
+		private void collectOccurrencesHelper(Node node, T data, List<T> occurrences) {
+			if (node == null) {
+				return;
+			}
+			AnimeChar animeCharData = (AnimeChar) data;
+			AnimeChar animeCharNodeData = (AnimeChar) node.data;
+	
+			boolean nameMatch = !animeCharData.getName().isEmpty() && animeCharNodeData.getName().toLowerCase().contains(animeCharData.getName());
+			boolean showMatch = !animeCharData.getShow().isEmpty() && animeCharNodeData.getShow().toLowerCase().contains(animeCharData.getShow());
+	
+			if (nameMatch || showMatch) {
+				occurrences.add(node.data);
+			}
+	
+			collectOccurrencesHelper(node.left, data, occurrences);
+			collectOccurrencesHelper(node.right, data, occurrences);
+		}
+	}

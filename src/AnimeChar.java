@@ -148,7 +148,7 @@ public class AnimeChar implements Comparable<AnimeChar>{
     		return false;
     	}else {
     		AnimeChar temp = (AnimeChar) o;
-    		return name.equals(temp.name) && show.equals(temp.show);        
+    		return name.equalsIgnoreCase(temp.name) && show.equalsIgnoreCase(temp.show);        
     	}
     		
     }
@@ -170,7 +170,7 @@ public class AnimeChar implements Comparable<AnimeChar>{
      */
 	@Override
     public int compareTo(AnimeChar other) {
-        return this.name.compareTo(other.name);
+        return this.name.compareToIgnoreCase(other.name);
     }
 
 
