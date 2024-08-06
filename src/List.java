@@ -235,7 +235,7 @@ public class List<T extends Comparable<T>> {
  	public int linearSearch(T element) {
 		Node temp = first;
 		for (int i = 1; i <= length; i++) {
-			if (temp.data == element) {
+			if (temp.data.equals(element)) {
 				return i;
 			}
 			temp = temp.next;

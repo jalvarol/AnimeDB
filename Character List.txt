@@ -1,0 +1,157 @@
+Name: Armin Arlert
+Show: Attack on Titan
+Gender: Male
+Voice Actor: Marina Inoue
+Release year: 2013
+
+Name: Sasuke Uchiha
+Show: Naruto
+Gender: Male
+Voice Actor: Noriaki Sugiyama
+Release year: 2002
+
+Name: Kagura
+Show: Gintama
+Gender: Female
+Voice Actor: Rie Kugimiya
+Release year: 2006
+
+Name: Sayaka Miki
+Show: Puella Magi Madoka Magica
+Gender: Female
+Voice Actor: Eri Kitamura
+Release year: 2011
+
+Name: Mumen Rider
+Show: One Punch Man
+Gender: Male
+Voice Actor: Yuichi Nakamura
+Release year: 2015
+
+Name: Naruto Uzumaki
+Show: Naruto
+Gender: Male
+Voice Actor: Junko Takeuchi
+Release year: 2002
+
+Name: Homura Akemi
+Show: Puella Magi Madoka Magica
+Gender: Female
+Voice Actor: Chiwa Saitou
+Release year: 2011
+
+Name: Illyasviel von Einzbern
+Show: Fate Stay Night
+Gender: Female
+Voice Actor: Mai Kadowaki
+Release year: 2006
+
+Name: Erwin Smith
+Show: Attack on Titan
+Gender: Male
+Voice Actor: Daisuke Ono
+Release year: 2013
+
+Name: Mami Tomoe
+Show: Puella Magi Madoka Magica
+Gender: Female
+Voice Actor: Kaori Mizuhashi
+Release year: 2011
+
+Name: Mikasa Ackerman
+Show: Attack on Titan
+Gender: Female
+Voice Actor: Yui Ishikawa
+Release year: 2013
+
+Name: Rin Tohsaka
+Show: Fate Stay Night
+Gender: Female
+Voice Actor: Kana Ueda
+Release year: 2006
+
+Name: Sakura Haruno
+Show: Naruto
+Gender: Female
+Voice Actor: Chie Nakamura
+Release year: 2002
+
+Name: Kyubey
+Show: Puella Magi Madoka Magica
+Gender: Other
+Voice Actor: Emiri Katou
+Release year: 2011
+
+Name: Sakata Gintoki
+Show: Gintama
+Gender: Male
+Voice Actor: Tomokazu Sugita
+Release year: 2006
+
+Name: Saitama
+Show: One Punch Man
+Gender: Male
+Voice Actor: Makoto Furukawa
+Release year: 2015
+
+Name: Tornado of Terror
+Show: One Punch Man
+Gender: Female
+Voice Actor: Aoi Yuuki
+Release year: 2015
+
+Name: Madoka Kaname
+Show: Puella Magi Madoka Magica
+Gender: Female
+Voice Actor: Aoi Yuuki
+Release year: 2011
+
+Name: Eren Yeager
+Show: Attack on Titan
+Gender: Male
+Voice Actor: Yuki Kaji
+Release year: 2013
+
+Name: Levi Ackermann
+Show: Attack on Titan
+Gender: Male
+Voice Actor: Hiroshi Kamiya
+Release year: 2013
+
+Name: Shirou Emiya
+Show: Fate Stay Night
+Gender: Male
+Voice Actor: Noriaki Sugiyama
+Release year: 2006
+
+Name: Genos
+Show: One Punch Man
+Gender: Male
+Voice Actor: Kaito Ishikawa
+Release year: 2015
+
+Name: Saber
+Show: Fate Stay Night
+Gender: Female
+Voice Actor: Awake Kawasumi
+Release year: 2006
+
+Name: Archer
+Show: Fate Stay Night
+Gender: Male
+Voice Actor: Junichi Suwabe
+Release year: 2006
+
+Name: Shinpachi Shimura
+Show: Gintama
+Gender: Male
+Voice Actor: Daisuke Sakaguchi
+Release year: 2006
+
+Name: Kyoko Sakura
+Show: Puella Magi Madoka Magica
+Gender: Female
+Voice Actor: Ai Nonaka
+Release year: 2011
+
+

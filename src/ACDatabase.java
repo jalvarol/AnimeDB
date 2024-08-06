@@ -89,8 +89,8 @@ public class ACDatabase {
 	}
 
 	public static void addCharacter(ACDatabase data, Scanner nextIn) {
-		System.out.println("\nAdding a Character");
-		System.out.print("\nEnter the Character name: ");
+		System.out.println("\nAdding a Character"+
+							"\nEnter the Character name: ");
 		String tempName = nextIn.nextLine();
 		System.out.print("Enter the Show name: ");
 		String tempShow = nextIn.nextLine();
@@ -133,38 +133,44 @@ public class ACDatabase {
 			}
 		}
 	}
-
 	public static void removeCharacter(ACDatabase data, Scanner nextIn) {
 		System.out.println("Removing a Character!");
+
 		System.out.print("\nEnter the character name: ");
 		String tempName = nextIn.nextLine();
+
 		System.out.print("Enter the show name: ");
 		String tempShow = nextIn.nextLine();
+
 		AnimeChar newChar = new AnimeChar(tempName, tempShow, "", "", 0);
-		if (data.ht.search(newChar) != -1) {
+		int searchIndex = data.ht.search(newChar);		
+
+		if (searchIndex != -1) {
+			System.out.println("Found in hash table: " + newChar);
 			data.ht.remove(newChar);
 			data.bstByName.remove(newChar);
 			data.bstByShow.remove(newChar);
-			System.out.println("\n" + newChar.getName() + " was removed!\n");
+			System.out.println("\n" + newChar.getName() + " from " + newChar.getShow() + " was removed!\n");
 		} else {
-			System.out.println("\n" + newChar.getName() + " cannot be located in the database.\n");
+			System.out.println("\n" + newChar.getName() + " from " + newChar.getShow() + " cannot be located in the database.\n");
 		}
 	}
-
 	public static void searchCharacter(ACDatabase data, Scanner nextIn) {
 		while (true) {
 			System.out.print("\nPlease select one of the following options: \n" +
-					"N. Name of the Character\n" +
-					"S. Title name\n" +
-					"\nEnter your choice: ");
+								"N. Name of the Character\n" +
+								"S. Title name\n" +
+								"\nEnter your choice: ");
 			char ch = nextIn.nextLine().charAt(0);
+			ch = Character.toUpperCase(ch);
+
 			if (ch == 'N') {
 				System.out.print("\nSearching for a Character!" +
-						"\nEnter the character name: ");
+								"\nEnter the character name: ");
 				String tempName = nextIn.nextLine();
-
 				AnimeChar newChar = new AnimeChar(tempName, "", "", "", 0);
 				List<AnimeChar> results = data.bstByName.collectOccurrences(newChar);
+
 				if (results.isEmpty()) {
 					System.out.println("\n" + newChar.getName() + " is not in the database.\n");
 				} else {
@@ -177,9 +183,11 @@ public class ACDatabase {
 				break;
 			} else if (ch == 'S') {
 				System.out.print("Searching for a Show!" +
-						"\nEnter the show name: ");
+								"\nEnter the show name: ");
+
 				String tempShow = nextIn.nextLine();
 				AnimeChar check = new AnimeChar("", tempShow, "", "", 0);
+
 				List<AnimeChar> results = data.bstByShow.collectOccurrences(check);
 				if (results.isEmpty()) {
 					System.out.println("\n" + check.getShow() + " is not in the database.\n");
@@ -202,7 +210,6 @@ public class ACDatabase {
 		try {
 			PrintWriter unsorted = new PrintWriter("Character List.txt");
 			unsorted.println(data.ht);
-
 			unsorted.close();
 
 		} catch (Exception e) {

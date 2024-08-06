@@ -346,65 +346,72 @@ public class BST<T extends Comparable<T>> {
 		}
 		return node;
 	}
+    /**
+     * Removes a value from the BST
+     * @param data the value to remove
+     * @precondition !isEmpty()
+     * @precondition the data is located in the tree
+     * @throws NoSuchElementException when the
+     * precondition is violated
+     */
+    public void remove(T data) throws NoSuchElementException
+    {
+       if(isEmpty())
+       {
+    	   throw new NoSuchElementException("remove(): BST is empty, no data to access!");
+       }
+       else if (search(data) == false)
+       {
+    	   throw new NoSuchElementException("remove(): Element is not located within the tree!");
+       }
+       else
+       {
+    	   root = remove(data,root);
+       }
+    }
+   
+    /**
+     * Helper method to the remove method
+     * @param data the data to remove
+     * @param node the current node
+     * @return an updated reference variable
+     */
+    private Node remove(T data, Node node) 
+    {	   
 
-	/**
-	 * Removes a value from the BST
-	 * 
-	 * @param data the value to remove
-	 * @precondition !isEmpty()
-	 * @precondition the data is located in the tree
-	 * @throws NoSuchElementException when the
-	 *                                precondition is violated
-	 */
-	public void remove(T data) throws NoSuchElementException {
-		if (isEmpty()) {
-			throw new NoSuchElementException("remove(): " + "BST is empty, no data to access.");
-		} else if (search(data) == false) {
-			throw new NoSuchElementException("remove(): " + "There is no such data in the current BST.");
-		} else if (root.left == null && data.compareTo(root.data) == 0) {
-			Node temp = root;
-			root = temp.right;
-		} else if (root.right == null && data.compareTo(root.data) == 0) {
-			Node temp = root;
-			root = temp.left;
-		} else {
-			root = remove(data, root);
-		}
-	}
-
-	/**
-	 * Helper method to the remove method
-	 * 
-	 * @param data the data to remove
-	 * @param node the current node
-	 * @return an updated reference variable
-	 */
-	private Node remove(T data, Node node) {
-		if (data.compareTo(node.data) < 0) {
-			node.left = remove(data, node.left);
-
-		} else if (data.compareTo(node.data) > 0) {
-			node.right = remove(data, node.right);
-
-		} else {
-			if (node.left == null && node.right == null) {
-				node = null;
-				return node;
-
-			} else if (node.right == null) {
-				node = node.left;
-
-			} else if (node.left == null) {
-				node = node.right;
-
-			} else {
-				node.data = findMin(node.right);
-				node = remove(node.data, node.right);
-			}
-		}
-		return node;
-	}
-
+        if(data.compareTo(node.data)<0)
+        {
+				 node.left = remove(data,node.left);
+        }	
+        else if(data.compareTo(node.data)>0)
+    		{
+    	   		 node.right = remove(data, node.right);
+    		}
+       else
+       {
+    	   if(node.left==null && node.right==null)
+    	   { 	
+    		  node = null;
+    		  return node;
+    	   }
+    	   else if(node.left==null && node.right != null)
+    	   {
+    		   return node.right;
+    	   }
+    	   else if(node.right==null && node.left != null) 
+    	   {
+    		   return node.left;
+    	   }
+    	   else
+    	   {	   
+    	   		node.data = findMin(node.right);
+    	   		node.right = remove(node.data,node.right);	
+    	   }
+       }
+        return node;
+       
+   }  
+    
 	/*** ADDITIONAL OPERATIONS ***/
 
 	/**
@@ -489,8 +496,8 @@ public class BST<T extends Comparable<T>> {
 			AnimeChar animeCharData = (AnimeChar) data;
 			AnimeChar animeCharNodeData = (AnimeChar) node.data;
 	
-			boolean nameMatch = !animeCharData.getName().isEmpty() && animeCharNodeData.getName().toLowerCase().contains(animeCharData.getName());
-			boolean showMatch = !animeCharData.getShow().isEmpty() && animeCharNodeData.getShow().toLowerCase().contains(animeCharData.getShow());
+			boolean nameMatch = !animeCharData.getName().isEmpty() && animeCharNodeData.getName().toLowerCase().contains(animeCharData.getName().toLowerCase());
+			boolean showMatch = !animeCharData.getShow().isEmpty() && animeCharNodeData.getShow().toLowerCase().contains(animeCharData.getShow().toLowerCase());
 	
 			if (nameMatch || showMatch) {
 				occurrences.add(node.data);
